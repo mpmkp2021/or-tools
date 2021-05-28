@@ -55,6 +55,7 @@ jobs:
             yum install -y epel-release dnf && \
             yum-config-manager --enable epel && \
             yum install -y python3-devel && \
+            find / -name Python.h && \
             yum install -y cmake && \
             cmake --version && \
             yum install -y swig && \
