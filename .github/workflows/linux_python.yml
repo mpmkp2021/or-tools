@@ -51,21 +51,20 @@ jobs:
       run: |
             docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             ${{ env.img }} \
-            bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
-            source .env/bin/activate && \
-            python -m pip install --upgrade pip && \
-             python -m pip install sic wheel setuptools && \
-            yum install -y python3-devel python3-tkinter libxml2-devel && \
+            bash -exc 'export PYTHON_EXE=python3 && \
+            yum install -y epel-release dnf && \
+            yum-config-manager --enable epel && \
+            yum install -y python3-devel && \
             yum install -y cmake && \
             cmake --version && \
             yum install -y swig && \
             swig -version && \
             #echo "************************************************************************" && \
             #echo ${{ env.workspc }} && \
-            export PATH=${{ env.path }}:$PATH && \
+            #export PATH=${{ env.path }}:$PATH && \
             which python3 && \
             #echo "/usr/local/bin" >> ${{ github.workspace }} && \
-            cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPYTHON_EXECUTABLE=${{ env.py }} -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
+            cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
             CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Release --target test -v && \
             cmake --build build --config Release --target install -v -- DESTDIR=install && \
