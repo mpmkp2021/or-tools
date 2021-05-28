@@ -54,14 +54,15 @@ jobs:
             bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
             source .env/bin/activate && \
             python -m pip install --upgrade pip && \
+            python -m pip install python3-dev && \
             yum install -y cmake && \
             cmake --version && \
             yum install -y swig && \
             swig -version && \
-            echo "************************************************************************" && \
-            echo ${{ env.workspc }} && \
-            export PATH=${{ env.path }}:$PATH && \
-            pwd && \
+            #echo "************************************************************************" && \
+            #echo ${{ env.workspc }} && \
+            #export PATH=${{ env.path }}:$PATH && \
+            #pwd && \
             #echo "/usr/local/bin" >> ${{ github.workspace }} && \
             cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
