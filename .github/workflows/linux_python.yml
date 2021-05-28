@@ -16,6 +16,8 @@ jobs:
       run: sudo apt install -y swig
     - name: Check swig
       run: swig -version
+    - name: echo Path
+      run: echo $GITHUB_PATH
     - name: Update Path
       run: echo "$HOME/.local/bin" >> $GITHUB_PATH
     - name: Configure
@@ -59,7 +61,7 @@ jobs:
             echo "************************************************************************" && \
             echo ${{ env.workspc }} && \
             export PATH=${{ env.path }}:$PATH && \
-            echo "$HOME/.local/bin" >> /ws && \
+            echo "$HOME/.local/bin" >> ${{ github.workspace }}:/ws && \
             cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
             CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Release --target test -v && \
