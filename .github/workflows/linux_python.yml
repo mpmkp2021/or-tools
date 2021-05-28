@@ -62,10 +62,10 @@ jobs:
             swig -version && \
             #echo "************************************************************************" && \
             #echo ${{ env.workspc }} && \
-            export PATH=/opt/_internal/cpython-*/include/:$PATH && \
+            #export PATH=/opt/_internal/cpython-*/include/:$PATH && \
             which python3 && \
             #echo "/usr/local/bin" >> ${{ github.workspace }} && \
-            cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
+            cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPYTHON_INCLUDE_DIR=/opt/_internal/cpython-*/include/ -DPYTHON_LIBRARY=/opt/_internal/cpython-*/lib/ -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
             CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Release --target test -v && \
             cmake --build build --config Release --target install -v -- DESTDIR=install && \
