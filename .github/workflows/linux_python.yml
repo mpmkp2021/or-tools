@@ -54,7 +54,7 @@ jobs:
             bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
             source .env/bin/activate && \
             python -m pip install --upgrade pip && \
-            yum install -y python3-devel python3-tk python3-lxml python3-six && \
+            yum install -y python3-devel python3-tkinter python3-lxml python3-six && \
             yum install -y cmake && \
             cmake --version && \
             yum install -y swig && \
@@ -62,9 +62,9 @@ jobs:
             #echo "************************************************************************" && \
             #echo ${{ env.workspc }} && \
             export PATH=${{ env.path }}:$PATH && \
-            #pwd && \
+            which python3 && \
             #echo "/usr/local/bin" >> ${{ github.workspace }} && \
-            cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
+            cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPYTHON_EXECUTABLE=${{ env.py }} -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
             CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Release --target test -v && \
             cmake --build build --config Release --target install -v -- DESTDIR=install && \
