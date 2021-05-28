@@ -54,7 +54,7 @@ jobs:
             bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
             source .env/bin/activate && \
             python -m pip install --upgrade pip && \
-            yum install -y python3-devel python3-tkinter python3-lxml python3-six && \
+            yum install -y python3-devel python3-tkinter libxml2-devel python3-six && \
             yum install -y cmake && \
             cmake --version && \
             yum install -y swig && \
