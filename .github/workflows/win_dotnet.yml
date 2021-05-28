@@ -1,6 +1,6 @@
 name: .Net Windows CI
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   # Building using the github runner environement directly.
