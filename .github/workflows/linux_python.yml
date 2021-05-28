@@ -56,7 +56,7 @@ jobs:
             yum install -y swig && \
             swig -version && \
             export PATH=${{ env.path }}:$PATH
-            #echo "$HOME/.local/bin" >> ${{ github.workspace }} && \
+            echo "$HOME/.local/bin" >> ${{ github.workspace }}:/ws && \
             cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
             CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Release --target test -v && \
