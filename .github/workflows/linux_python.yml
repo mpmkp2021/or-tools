@@ -65,7 +65,7 @@ jobs:
             #echo "************************************************************************" && \
             #echo ${{ env.workspc }} && \
             #export PATH=/opt/_internal/cpython-*/include/:$PATH && \
-            which python3 && \
+            #which python3 && \
             #echo "/usr/local/bin" >> ${{ github.workspace }} && \
             cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
