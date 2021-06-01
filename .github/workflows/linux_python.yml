@@ -37,7 +37,7 @@ jobs:
             swig -version && \
             echo "************************************************************************" && \
             PYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig;print(sysconfig.get_config_var(\"LIBDIR\")+\"/libpython3.7.dylib\");") && \
-            cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPYTHON_LIBRARY=print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
+            cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig;print(sysconfig.get_config_var(\"LIBDIR\")+\"/libpython3.7.dylib\");") -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
             CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Release --target test -v && \
             cmake --build build --config Release --target install -v -- DESTDIR=install'
