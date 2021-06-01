@@ -54,19 +54,17 @@ jobs:
             bash -exc 'export PYTHON_EXE=python3 && \
             yum install -y epel-release dnf && \
             yum-config-manager --enable epel && \
-            #yum install -y python3-devel && \
-            #find / -name Python.h && \
-            #yum install -y cmake && \
+            yum install -y python3-devel && \
             ${{ env.py }} -m pip install cmake && \
             ${{ env.py }} -m pip install python-dev-tools && \
             cmake --version && \
             yum install -y swig && \
             swig -version && \
-            #echo "************************************************************************" && \
-            #echo ${{ env.workspc }} && \
-            #export PATH=/opt/_internal/cpython-*/include/:$PATH && \
-            #which python3 && \
-            #echo "/usr/local/bin" >> ${{ github.workspace }} && \
+            echo "************************************************************************" && \
+            PYTHON_LIBRARY=print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) && \
+            print\(PYTHON_LIBRARY\) && \
+            print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) && \
+            PYTHON_LIBRARY=print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) && \
             cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPYTHON_LIBRARY=print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
             CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Release --target test -v && \
