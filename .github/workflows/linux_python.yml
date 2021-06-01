@@ -3,32 +3,7 @@ name: Python Linux CI
 on: [push, pull_request]
 
 jobs:
-  # Building using the github runner environement directly.
-  cmake:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install python3 venv
-      run: sudo apt-get install python3-venv
-    - name: Check cmake
-      run: cmake --version
-    - name: Swig install
-      run: sudo apt install -y swig
-    - name: Check swig
-      run: swig -version
-    - name: echo Path
-      run: echo $GITHUB_PATH
-    - name: Update Path
-      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
-    - name: Configure
-      run: cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF
-    - name: Build
-      run: cmake --build build --config Release --target all -v
-    - name: Test
-      run: CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Release --target test -v
-    - name: Install
-      run: cmake --build build --config Release --target install -v -- DESTDIR=install
-      
+  # Building using the github runner environement directly.      
   aaarch64:
     name: "Build and Deploy (aarch64 ${{ matrix.pyver }})"
     strategy:
@@ -61,9 +36,9 @@ jobs:
             yum install -y swig && \
             swig -version && \
             echo "************************************************************************" && \
-            PYTHON_LIBRARY=print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) && \
-            print\(PYTHON_LIBRARY\) && \
-            print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) && \
+            PYTHON_LIBRARY=python -c "import distutils.sysconfig as sysconfig;print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\)" && \
+            python -c "print\(PYTHON_LIBRARY\)" && \
+            python -c "import distutils.sysconfig as sysconfig; print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\)" && \
             PYTHON_LIBRARY=print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) && \
             cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPYTHON_LIBRARY=print\(sysconfig.get_config_var\('LIBDIR'\)+'/libpython3.7.dylib'\) -DBUILD_CXX_SAMPLES=OFF -DBUILD_CXX_EXAMPLES=OFF && \
             cmake --build build --config Release --target all -v && \
