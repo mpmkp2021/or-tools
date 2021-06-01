@@ -33,7 +33,7 @@ jobs:
     name: "Build and Deploy (aarch64 ${{ matrix.pyver }})"
     strategy:
       matrix:
-        pyver: [cp36-cp36m, cp37-cp37m, cp38-cp38, cp39-cp39]
+        pyver: [cp39-cp39]
       fail-fast: false
     runs-on: ubuntu-latest
     env:
